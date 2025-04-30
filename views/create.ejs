@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/photo_preview.js"></script>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+        <%- include('partials/sidebar', { status: status }) %>
+            <main id="birds">
+                <div>
+                    <h2>Create New Bird</h2>
+                    <form action="/birds/create" method="post" enctype="multipart/form-data">
+                        <fieldset>
+                            <legend>Common Names</legend>
+                            <label for="primary_name">Primary Name</label>
+                            <input type="text" name="primary_name" value required>
+                            <label for="english_name">English Name</label>
+                            <input type="text" name="english_name" value required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Taxonomy</legend>
+                            <label for="scientific_name">Scientific Name</label>
+                            <input type="text" name="scientific_name" value required>
+                            <label for="order_name">Order</label>
+                            <input type="text" name="order_name" value required>
+                            <label for="family">Familiy</label>
+                            <input type="text" name="family" value required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Size</legend>
+                            <label for="length">Length (cm)</label>
+                            <input type="number" name="length" value required>
+                            <label for="weight">Weight (g)</label>
+                            <input type="number" name="weight" value required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Conservation</legend>
+                            <label for="status_name">Status</label>
+                            <select name="status_name" id="status">
+                                <% for (let i=0; i < status.length; i++) { %>
+                                    <option value="<%= status[i].status_id %>">
+                                        <%= status[i].status_name %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Photo</legend>
+                            <label for="photographer">Photo Credit</label>
+                            <input type="text" name="photographer" value required>
+                            <label for="photo_upload">Upload New Photo</label>
+                            <input type="file" name="photo_upload" id="photo_upload" required>
+                            <label for="photo_source">Photo Preview</label>
+                            <img id="photo_preview" src="" alt="Photo of Upload">
+                            <input type="text" id="upload_source" name="photo_source" value readonly="readonly">
+                        </fieldset>
+
+                        <button class="button" type="submit">Save Bird</button>
+                    </form>
+                </div>
+            </main>
+            <%- include('partials/footer') %>
+</body>
+
+</html>
